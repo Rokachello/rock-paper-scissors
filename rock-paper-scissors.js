@@ -5,5 +5,7 @@ function getComputerChoice(){
     let symbol = ["Rock", "Paper", "Scissors"]
     let choiceNumber = Math.floor(Math.random()*3)
     
+    
     return sign[choiceNumber]
+
 }
