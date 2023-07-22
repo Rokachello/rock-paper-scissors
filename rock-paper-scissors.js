@@ -50,37 +50,4 @@ function playOneRound(){
 
 }
 
-function game(){
-    let playerPoints = 0
-    let computerPoints = 0
-    let winner = null
-
-    for(let i = 0; i < 5; i++){
-
-         let roundResult = playOneRound()
-         let winner = roundResult.split(`.`)
-
-         if(winner[0] === `You win`){
-            playerPoints++
-         } else if(winner[0]===`You lose`){
-            computerPoints++
-         }
-
-    }
-
-    if(playerPoints>computerPoints){
-        return(`You win. Final score: human: ${playerPoints} - ${computerPoints} :computer`)
-    }
-    else if(playerPoints<computerPoints){
-        return(`You lose. Final score: human: ${playerPoints} - ${computerPoints} :computer`)
-    } else {
-        return (`It is a tie. Final score: human: ${playerPoints} - ${computerPoints} :computer`)
-    }
-    
-
-}
-
-game()
-
-
 
