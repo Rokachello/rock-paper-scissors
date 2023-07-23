@@ -15,34 +15,36 @@ function getPlayerChoice(){
     return symbol
 }
 
+    let computersPick = getComputerChoice()
+    let playersPick = getPlayerChoice()
+
 //function that asks player to choose his symbol and then returns the winner of the round.
-function playOneRound(){
+function playOneRound(computersPick, playersPick){
     
-    let computerSymbol = getComputerChoice()
-    let humanSymbol = getPlayerChoice()
+    
 
     // logic for choosing a winner of a round
-    if(humanSymbol === computerSymbol){
+    if(playersPick === computersPick){
         
-        return `you both choose ${humanSymbol}, it is a tie`
+        return `you both choose ${playersPick}, it is a tie`
 
-    } else if (humanSymbol === `rock`){
-        if(computerSymbol === `paper`){
-            return `You lose. ${computerSymbol} beat ${humanSymbol}`
+    } else if (playersPick === `rock`){
+        if(computersPick === `paper`){
+            return `You lose. ${computersPick} beat ${playersPick}`
         } else {
-            return `You win. ${humanSymbol} beat ${computerSymbol}`
+            return `You win. ${playersPick} beat ${computersPick}`
         }
-    } else if (humanSymbol === `paper`){
-        if(computerSymbol === `scissors`){
-            return `You lose. ${computerSymbol} beat ${humanSymbol}`
+    } else if (playersPick === `paper`){
+        if(computersPick === `scissors`){
+            return `You lose. ${computersPick} beat ${playersPick}`
         } else {
-            return `You win. ${humanSymbol} beat ${computerSymbol}`
+            return `You win. ${playersPick} beat ${computersPick}`
         }
-    } else if (humanSymbol === `scissors`){
-        if(computerSymbol === `rock`){
-            return `You lose. ${computerSymbol} beat ${humanSymbol}`
+    } else if (playersPick === `scissors`){
+        if(computersPick === `rock`){
+            return `You lose. ${computersPick} beat ${playersPick}`
         } else {
-            return `You win. ${humanSymbol} beat ${computerSymbol}`
+            return `You win. ${playersPick} beat ${computersPick}`
         }
     } else {
         return `wrong input. Try again`
@@ -50,4 +52,30 @@ function playOneRound(){
 
 }
 
+const actionButtons = document.querySelectorAll('button');
+actionButtons.forEach((button) =>
+    button.addEventListener(`click`, (e) =>
+    {
+       console.log(e)
+    }))
 
+
+
+
+
+const container = document.querySelector('#container');
+
+const playerPick = document.createElement('div');
+playerPick.classList.add('playersPick');
+playerPick.textContent = `Player picks: ${playersPick}` ;
+container.appendChild(playerPick);
+
+const computerPick = document.createElement('div');
+computerPick.classList.add('computerPick');
+computerPick.textContent = `Computer picks: ${computersPick}`;
+container.appendChild(computerPick);
+
+const roundResult = document.createElement('div');
+roundResult.classList.add('roundResult');
+roundResult.textContent = playOneRound(computersPick,playersPick);
+container.appendChild(roundResult);
