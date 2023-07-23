@@ -9,14 +9,9 @@ function getComputerChoice(){
 
 }
 
-function getPlayerChoice(){
 
-    let symbol = prompt(`Choose your symbol: rock, paper or scissors`).toLowerCase();
-    return symbol
-}
-
-    let computersPick = getComputerChoice()
-    let playersPick = getPlayerChoice()
+    let computersPick = null
+    let playersPick = null
 
 //function that asks player to choose his symbol and then returns the winner of the round.
 function playOneRound(computersPick, playersPick){
@@ -54,21 +49,19 @@ function playOneRound(computersPick, playersPick){
 
 const actionButtons = document.querySelectorAll('button');
 actionButtons.forEach((button) =>
-    button.addEventListener(`click`, (e) =>
-    {
-       console.log(e)
-    }))
+    button.addEventListener(`click`, humanPick(button.id)))
 
-
+function humanPick(buttonId){
+    const container = document.querySelector('#container');
+    const playerPick = document.createElement('div');
+    playerPick.classList.add('playersPick');
+    playerPick.textContent = `Player picks: ${buttonId}` ;
+    container.appendChild(playerPick);
+}
 
 
 
 const container = document.querySelector('#container');
-
-const playerPick = document.createElement('div');
-playerPick.classList.add('playersPick');
-playerPick.textContent = `Player picks: ${playersPick}` ;
-container.appendChild(playerPick);
 
 const computerPick = document.createElement('div');
 computerPick.classList.add('computerPick');
