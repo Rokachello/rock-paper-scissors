@@ -1,45 +1,37 @@
 ``
 // function randomly returns rock/paper/scissors. It simulates computers choice.
-function getComputerChoice(){
+function getComputerPick(){
 
     let symbol = [`rock`, `paper`, `scissors`]
     let choiceNumber = Math.floor(Math.random()*3)
     
     return symbol[choiceNumber]
-
 }
 
 
-    let computersPick = null
-    let playersPick = null
-
 //function that asks player to choose his symbol and then returns the winner of the round.
-function playOneRound(computersPick, playersPick){
+function pickWinner(playerPick, computerPick){
     
-    
+    if (playerPick === computerPick){    
+        return `you both choose ${playerPick}, it is a tie`
 
-    // logic for choosing a winner of a round
-    if(playersPick === computersPick){
-        
-        return `you both choose ${playersPick}, it is a tie`
-
-    } else if (playersPick === `rock`){
-        if(computersPick === `paper`){
-            return `You lose. ${computersPick} beat ${playersPick}`
+    } else if  (playerPick === `rock`){
+        if(computerPick === `paper`){
+            return `You lose. ${computerPick} beat ${playerPick}`
         } else {
-            return `You win. ${playersPick} beat ${computersPick}`
+            return `You win. ${playerPick} beat ${computerPick}`
         }
-    } else if (playersPick === `paper`){
-        if(computersPick === `scissors`){
-            return `You lose. ${computersPick} beat ${playersPick}`
+    } else if  (playerPick === `paper`){
+        if(computerPick === `scissors`){
+            return `You lose. ${computerPick} beat ${playerPick}`
         } else {
-            return `You win. ${playersPick} beat ${computersPick}`
+            return `You win. ${playerPick} beat ${computerPick}`
         }
-    } else if (playersPick === `scissors`){
-        if(computersPick === `rock`){
-            return `You lose. ${computersPick} beat ${playersPick}`
+    } else if  (playerPick === `scissors`){
+        if(computerPick === `rock`){
+            return `You lose. ${computerPick} beat ${playerPick}`
         } else {
-            return `You win. ${playersPick} beat ${computersPick}`
+            return `You win. ${playerPick} beat ${computerPick}`
         }
     } else {
         return `wrong input. Try again`
@@ -47,28 +39,46 @@ function playOneRound(computersPick, playersPick){
 
 }
 
-const actionButtons = document.querySelectorAll('button');
-actionButtons.forEach((button) =>
-    button.addEventListener(`click`, humanPick(button.id)))
+ // add text about computer pick
+ const computerPick = document.createElement('div');
+ computerPick.classList.add('pick');
+ computerPick.textContent =` `;
+ container.appendChild(computerPick);
 
-function humanPick(buttonId){
+  // add text about player pick
+  const playerPick = document.createElement('div');
+  playerPick.classList.add('pick');
+  playerPick.textContent = ` `;
+  container.appendChild(playerPick);
+
+  // add text about who wins
+  const winnerText = document.createElement('div');
+  winnerText.classList.add('winnerText');
+  winnerText.textContent = ` `;
+  container.appendChild(winnerText);
+
+function playRound(myPick){
+
+    let computer = getComputerPick()
+    let player = myPick
+    let winner  = pickWinner(player, computer)
+
     const container = document.querySelector('#container');
-    const playerPick = document.createElement('div');
-    playerPick.classList.add('playersPick');
-    playerPick.textContent = `Player picks: ${buttonId}` ;
-    container.appendChild(playerPick);
+    
+    // update text
+    computerPick.textContent = `Computer picks: ${computer}`;
+    playerPick.textContent = `Player picks: ${player}`;
+    winnerText.textContent = `${winner}`;
+
 }
 
 
 
-const container = document.querySelector('#container');
+const actionButtons = document.querySelectorAll('button');
+actionButtons.forEach((button) =>
+    button.addEventListener(`click`, () =>
+    {
+        let player = button.id
+        playRound(player)
+    }))
 
-const computerPick = document.createElement('div');
-computerPick.classList.add('computerPick');
-computerPick.textContent = `Computer picks: ${computersPick}`;
-container.appendChild(computerPick);
-
-const roundResult = document.createElement('div');
-roundResult.classList.add('roundResult');
-roundResult.textContent = playOneRound(computersPick,playersPick);
-container.appendChild(roundResult);
