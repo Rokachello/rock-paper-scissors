@@ -19,8 +19,6 @@ function getComputerPick(){
 function pickWinner(playerPick, computerPick){
     
     if (playerPick === computerPick){    
-        console.log(playerScore)
-        
         return `you both choose ${playerPick}, it is a tie`
     } else if  (playerPick === `rock`){
         if(computerPick === `paper`){
@@ -114,6 +112,7 @@ actionButtons.forEach((button) =>
   winnerText.classList.add('winnerText');
   winnerText.textContent = ` `;
   container.appendChild(winnerText);
+  
 // add text about current score
   const score = document.createElement('h3');
   score.classList.add('score');
