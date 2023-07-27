@@ -1,4 +1,10 @@
 ``
+//SCORE
+
+let playerScore = 0
+let computerScore = 0
+
+
 // function randomly returns rock/paper/scissors. It simulates computers choice.
 function getComputerPick(){
 
@@ -13,24 +19,31 @@ function getComputerPick(){
 function pickWinner(playerPick, computerPick){
     
     if (playerPick === computerPick){    
+        console.log(playerScore)
+        
         return `you both choose ${playerPick}, it is a tie`
-
     } else if  (playerPick === `rock`){
         if(computerPick === `paper`){
+            computerScore++
             return `You lose. ${computerPick} beat ${playerPick}`
         } else {
+            playerScore++
             return `You win. ${playerPick} beat ${computerPick}`
         }
     } else if  (playerPick === `paper`){
         if(computerPick === `scissors`){
+            computerScore++
             return `You lose. ${computerPick} beat ${playerPick}`
         } else {
+            playerScore++
             return `You win. ${playerPick} beat ${computerPick}`
         }
     } else if  (playerPick === `scissors`){
         if(computerPick === `rock`){
+            computerScore++
             return `You lose. ${computerPick} beat ${playerPick}`
         } else {
+            playerScore++
             return `You win. ${playerPick} beat ${computerPick}`
         }
     } else {
@@ -39,7 +52,52 @@ function pickWinner(playerPick, computerPick){
 
 }
 
- // add text about computer pick
+
+
+ 
+function playRound(myPick){
+
+    if (playerScore > 4 || computerScore > 4){
+        return
+    }
+
+    let computer = getComputerPick()
+    let player = myPick
+    let winner  = pickWinner(player, computer)
+   
+
+    const container = document.querySelector('#container');
+    
+    // update text
+    computerPick.textContent = `Computer picks: ${computer}`;
+    playerPick.textContent = `Player picks: ${player}`;
+    winnerText.textContent = `${winner}`; 
+    score.textContent = `PLAYER ${playerScore}:${computerScore} COMPUTER`;
+
+    if (playerScore > 4 ){
+        score.textContent = `CONGRATS YOU WIN !!!! ${playerScore}:${computerScore}`;
+    } else if (computerScore > 4){
+        score.textContent = `COMPUTER WINS THIS TIME ! ${playerScore}:${computerScore}`;
+    }
+}
+
+
+// button click 
+const actionButtons = document.querySelectorAll('button');
+actionButtons.forEach((button) =>
+    button.addEventListener(`click`, () =>
+    {
+        let player = button.id
+        playRound(player)
+        
+    }))
+
+
+
+
+
+
+// add text about computer pick
  const computerPick = document.createElement('div');
  computerPick.classList.add('pick');
  computerPick.textContent =` `;
@@ -56,29 +114,13 @@ function pickWinner(playerPick, computerPick){
   winnerText.classList.add('winnerText');
   winnerText.textContent = ` `;
   container.appendChild(winnerText);
+// add text about current score
+  const score = document.createElement('h3');
+  score.classList.add('score');
+  score.textContent = `PLAYER ${playerScore}:${computerScore} COMPUTER`;
+  container.appendChild(score);
 
-function playRound(myPick){
 
-    let computer = getComputerPick()
-    let player = myPick
-    let winner  = pickWinner(player, computer)
-
-    const container = document.querySelector('#container');
-    
-    // update text
-    computerPick.textContent = `Computer picks: ${computer}`;
-    playerPick.textContent = `Player picks: ${player}`;
-    winnerText.textContent = `${winner}`;
+function playerPoint(){
 
 }
-
-
-
-const actionButtons = document.querySelectorAll('button');
-actionButtons.forEach((button) =>
-    button.addEventListener(`click`, () =>
-    {
-        let player = button.id
-        playRound(player)
-    }))
-
